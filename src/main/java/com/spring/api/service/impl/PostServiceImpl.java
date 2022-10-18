@@ -22,8 +22,9 @@ public class PostServiceImpl implements PostService {
 
     private ModelMapper mapper;
 
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, ModelMapper mapper) {
         this.postRepository = postRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -63,18 +64,26 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto getPostById(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(() -> new Exception("error"));
+        Post post = postRepository.findById(id).orElseThrow();
         return mapToDto(post);
     }
 
     @Override
     public PostDto updatePost(PostDto dto, Long id) {
-        return null;
+        Post post = postRepository.findById(id).orElseThrow();
+
+        post.setTitle(dto.getTitle());
+        post.setBody(dto.getBody());
+
+        Post updatePost = postRepository.save(post);
+
+        return mapToDto(updatePost);
     }
 
     @Override
     public void deletePostById(Long id) {
-
+        Post post = postRepository.findById(id).orElseThrow();
+        postRepository.delete(post);
     }
 
     // Entity To Dto
