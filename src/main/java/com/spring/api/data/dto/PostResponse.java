@@ -18,5 +18,4 @@ public class PostResponse {
     private Long totalCount;
     private Integer totalPage;
     private boolean last;
-
 }
