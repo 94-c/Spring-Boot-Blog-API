@@ -37,7 +37,6 @@ public class Comment {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-
     @Column(name = "delete_state", columnDefinition = "tinyint(1) default 0")
     private Integer deleteState;
 
